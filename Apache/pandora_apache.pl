@@ -77,10 +77,15 @@ my $ax=0;
 			$config->[$ax]->{"Apache B/second"} = $1;
 		}
 
-		if ($_ =~ /([0-9]+)\skB\/request/) {
-			
-			$config->[$ax]->{"Apache B/request"} = $1;
+		# This not work! if ($_ =~ /([0-9]+)\skB\/request/) {
+		if ($_ =~ /([0-9]+\.[0-9]+)\skB\/request/) {
+				$config->[$ax]->{"Apache B/request"} = $1 * 1024;
 		}
+		elsif ($_ =~ /([0-9]+)\sB\/request/)
+		{
+				$config->[$ax]->{"Apache B/request"} = $1;
+		}
+
 
 		if ($_ =~ /([0-9]+)\srequests\scurrently/) {
 			
@@ -90,6 +95,12 @@ my $ax=0;
 		if ($_ =~ /([0-9]+)\sidle\sworkers/) {
 			
 			$config->[$ax]->{"ApacheIdleWorkers"} = $1;
+		}
+
+		# INCLAM
+		if ($_ =~ /([0-9]+)\srequests\scurrently\sbeing\sprocessed/) {
+
+				$config->[$ax]->{"RequestBeingProcessed"} = $1;
 		}
 
 	}
