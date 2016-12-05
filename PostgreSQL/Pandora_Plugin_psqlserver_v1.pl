@@ -8,9 +8,6 @@
 #                Carlos E. García  <carlos.garcia@artica.es>                  #
 #                                                                             #
 ###############################################################################
-# v1.0.1 - 25/10/16
-#	david.tabernero@inclam.com
-# 		- Fix for Ubuntu 14.04
 # -----------------------------------------------------------------------------
 # Default lib dir for RPM and DEB packages
 use lib '/usr/lib/perl5';
@@ -139,7 +136,7 @@ sub load_external_setup() {
 					$modules{$numUser."description"}=&trim($data[1]);
 				}
 
-                elsif ($line =~ /query\s*:=\s*"[a-zA-z0-9\s\*();=\.ºª\/\+\>]*;{1}"{1}/){
+				elsif ($line =~ /query\s*:=\s*"[a-zA-z0-9\s\*();=\@\.ºª\/\+\>\x27]*;{1}"{1}/){
 					@data=split(/:=\s*/, $line);
 				    	$data[1] =~ s/"//g;
 				    	$modules{$numUser."query"}=&trim($data[1]);	
